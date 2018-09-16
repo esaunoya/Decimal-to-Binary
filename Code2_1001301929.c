@@ -44,9 +44,9 @@ ConvertDecimalToBinary()
 */
 void convertDecimalToBinary(int decimal, int arr[]){
 	for(int i = 0; i < 8; i++){
-		//using bitmask &1 finds out if the current value of
-		//decimal is odd, if so, writes 1 to array
-		arr[7-i]=(decimal&1)?1:2;
+		//using bitmask &1 finds out if the current value of decimal is odd,
+		//if so, writes 1 to array, else writes odd
+		arr[7-i]=(decimal&1)?1:0;
 		//right bitshifts decimal by 1, equivalent to dividing by 2
 		decimal = decimal >> 1;
 	}
