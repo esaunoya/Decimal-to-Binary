@@ -3,8 +3,9 @@
 /*
 	Function Declarations
 */
-void convertDecimalToBinary(int decimal, int arr[]);
-void printBinary(int arr[]);
+void convertDecimalToBinary(int decimal, int arr[], int max);
+void printBinary(int arr[], int max);
+int findMax(int decimal);
 /*
 main():
 	Prompts user for a decimal number to convert to binary.
@@ -16,23 +17,39 @@ main():
 int main(void){
 	// decimal to be converted to binary later
 	int decimal = -1;
-	//integer array to hold the 1's and 0's of our output
-	//I called it binArry... I think it's a pretty funny name
-	int binArry[8];
+	int max = -1;
 	printf("Decimal to binary converter\n\n");
-	//while loop prompting user for input and checking if its between 0 and 255
-	while(decimal < 0 || decimal > 255){
-		printf("Please enter a decimal number between 0 and 255 ");
+	//while loop prompting user for input and checking if its greater than 0
+	while(decimal < 0){
+		printf("Please enter a decimal number greater than 0: ");
 		scanf("%d", &decimal);
-		if(decimal < 0 || decimal > 255){
-			printf("\nYou entered a number not between 0 and 255\n\n");
+		if(decimal < 0){
+			printf("\nYou entered a number less than 0\n\n");
 		}
 	}
+	max = findMax(decimal);
+	//integer array to hold the 1's and 0's of our output
+	//I called it binArry... I think it's a pretty funny name
+	int binArry[max];
 	printf("\n");
-	convertDecimalToBinary(decimal, binArry);
+	convertDecimalToBinary(decimal, binArry, max);
 	printf("Decimal %d converts to binary ", decimal);
-	printBinary(binArry);
+	printBinary(binArry, max);
 	return 0;
+}
+/*
+findMax()
+
+	finds bit lenght of decimal
+*/
+int findMax(int decimal){
+	int bitLen = 0;
+	int mul = 1;
+	while(decimal >= mul){
+		bitLen++;
+		mul*=2;
+	}
+	return bitLen;
 }
 /*
 ConvertDecimalToBinary()
@@ -42,11 +59,11 @@ ConvertDecimalToBinary()
 	Converts decimal to binary by divinding in half, ignoring the remainder
 	writing 1's for odd numbers and 0's for even, and repeat.
 */
-void convertDecimalToBinary(int decimal, int arr[]){
-	for(int i = 0; i < 8; i++){
+void convertDecimalToBinary(int decimal, int arr[], int max){
+	for(int i = 0; i < max; i++){
 		//using bitmask &1 finds out if the current value of decimal is odd,
 		//if so, writes 1 to array, else writes odd
-		arr[7-i]=(decimal&1)?1:0;
+		arr[(max-1)-i]=(decimal&1)?1:0;
 		//right bitshifts decimal by 1, equivalent to dividing by 2
 		decimal = decimal >> 1;
 	}
@@ -57,8 +74,8 @@ Print Binary()
 
 	Takes array and prints it... not much to it
 */
-void printBinary(int arr[]){
-	for(int i = 0; i < 8; i++){
+void printBinary(int arr[], int max){
+	for(int i = 0; i < max; i++){
 		printf("%d", arr[i]);	
 	}
 	printf("\n\n");
