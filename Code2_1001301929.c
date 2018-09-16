@@ -1,4 +1,4 @@
-/* Esau Noya | 1001301929 */
+/* Esau Noya | 1001301929 | CSE 1320-005 */
 #include <stdio.h>
 /*
 	Function Declarations
@@ -44,11 +44,10 @@ ConvertDecimalToBinary()
 */
 void convertDecimalToBinary(int decimal, int arr[]){
 	for(int i = 0; i < 8; i++){
-		//using 00000001 as a bitmask finds out if the current value of
+		//using bitmask &1 finds out if the current value of
 		//decimal is odd, if so, writes 1 to array
-		if(decimal&1) 
-			arr[7-i]=1;
-		//right bitshifts decimal by 1, which is equivalent to dividing by 2
+		arr[7-i]=(decimal&1)?1:2;
+		//right bitshifts decimal by 1, equivalent to dividing by 2
 		decimal = decimal >> 1;
 	}
 	return;
