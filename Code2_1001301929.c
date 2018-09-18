@@ -9,8 +9,10 @@ int findMax(int decimal);
 /*
 main():
 	Prompts user for a decimal number to convert to binary.
-	Checks if input is between 0 and 255
+	Checks if input is 0 or greater
 		if not prompts user for input again
+	Calls findMax()
+	Creates binArry array with size found with findMax()
 	Calls convertDecimalToBinary
 	Calls printbinary
 */
@@ -21,7 +23,7 @@ int main(void){
 	printf("Decimal to binary converter\n\n");
 	//while loop prompting user for input and checking if its greater than 0
 	while(decimal < 0){
-		printf("Please enter a decimal number greater than 0: ");
+		printf("Please enter a decimal number 0 or greater: ");
 		scanf("%d", &decimal);
 		if(decimal < 0){
 			printf("\nYou entered a number less than 0\n\n");
@@ -49,6 +51,7 @@ int findMax(int decimal){
 		bitLen++;
 		mul*=2;
 	}
+	if(bitLen==0)bitLen=1;
 	return bitLen;
 }
 /*
